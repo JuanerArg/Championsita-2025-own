@@ -4,6 +4,9 @@ import com.championsita.name.Personaje;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
+/**
+ * Implementación concreta de {@link Personaje} con valores por defecto.
+ */
 public class Normal extends Personaje {
 
     public Normal() {

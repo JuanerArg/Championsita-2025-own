@@ -9,8 +9,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
+/**
+ * Clase base que representa a un personaje controlable dentro del juego.
+ * Encapsula la lógica de movimiento, animaciones y manejo de stamina.
+ */
 public abstract class Personaje {
 
+    /** HUD asociado al personaje para dibujar información en pantalla */
     HudPersonaje hud;
 
 
@@ -61,6 +66,15 @@ public abstract class Personaje {
     private Rectangle hitbox;
 
     // === Constructor ===
+    /**
+     * Construye un nuevo personaje base.
+     *
+     * @param nombre nombre visible del personaje
+     * @param escala factor de escala usado para las texturas
+     * @param velocidadBase velocidad normal de movimiento
+     * @param velocidadSprint velocidad al sprintar
+     * @param staminaMax valor máximo de stamina
+     */
     public Personaje(String nombre, float escala, float velocidadBase, float velocidadSprint, float staminaMax) {
         // Cargar texturas
 
@@ -111,6 +125,10 @@ public abstract class Personaje {
 
     // === Métodos privados auxiliares ===
 
+    /**
+     * Genera una animación a partir de un {@link Texture} dividido en columnas
+     * y filas.
+     */
     private Animation<TextureRegion> crearAnimacion(Texture sheet, int columnas, int filas) {
         TextureRegion[][] tmp = TextureRegion.split(sheet, sheet.getWidth() / columnas, sheet.getHeight() / filas);
         TextureRegion[] frames = new TextureRegion[columnas * filas];
@@ -125,6 +143,9 @@ public abstract class Personaje {
         return new Animation<>(0.1f, frames);
     }
 
+    /**
+     * Determina la {@link Direccion} del movimiento según las teclas presionadas.
+     */
     private Direccion calcularDireccion(boolean izquierda, boolean derecha, boolean arriba, boolean abajo) {
         if (izquierda && arriba) return Direccion.ARRIBA_IZQUIERDA;
         if (derecha && arriba) return Direccion.ARRIBA_DERECHA;
@@ -139,6 +160,11 @@ public abstract class Personaje {
 
     // === Métodos públicos ===
 
+    /**
+     * Actualiza el estado temporal de las animaciones.
+     *
+     * @param delta tiempo transcurrido desde el último frame
+     */
     public void update(float delta) {
         if (estaMoviendo) {
             stateTime += delta;
@@ -147,6 +173,10 @@ public abstract class Personaje {
 
     float move;
 
+    /**
+     * Calcula la velocidad de movimiento aplicando sprint y gestión de
+     * stamina.
+     */
     private void actualizarVelocidad(boolean sprint, float delta){
 
         float velocidadActual = velocidadBase;
@@ -186,6 +216,10 @@ public abstract class Personaje {
         move = velocidadActual * delta;
     }
 
+    /**
+     * Actualiza la dirección y posición del personaje según las teclas
+     * presionadas.
+     */
     private void actualizarDireccion(boolean izquierda, boolean derecha, boolean arriba, boolean abajo) {
         estaMoviendo = izquierda || derecha || arriba || abajo;
 
@@ -215,6 +249,9 @@ public abstract class Personaje {
 
 
     // Esto lo llama el ManejadorInput
+    /**
+     * Actualiza el estado del personaje a partir de la entrada del usuario.
+     */
     public void actualizarEstadojugador(boolean arriba, boolean abajo, boolean izquierda, boolean derecha,boolean sprint, float delta) {
 
         actualizarVelocidad(sprint, delta);
@@ -222,6 +259,9 @@ public abstract class Personaje {
 
     }
 
+    /**
+     * Dibuja el personaje en la posición actual usando la animación adecuada.
+     */
     public void render(SpriteBatch batch) {
         TextureRegion frameActual;
 
@@ -256,51 +296,66 @@ public abstract class Personaje {
 
     }
 
+    /**
+     * Restringe el movimiento del personaje para que permanezca dentro del
+     * área visible.
+     */
     public void limitarMovimiento(float worldWidth, float worldHeight) {
         x = MathUtils.clamp(x, 0, worldWidth - width);
         y = MathUtils.clamp(y, 0, worldHeight - height);
     }
 
+    /** @return dirección actual de movimiento */
     public Direccion getDireccion() {
         return direccionActual;
     }
 
+    /** @return rectángulo de colisión del personaje */
     public Rectangle getHitbox() {
         return hitbox;
     }
 
+    /** Indica si la tecla espacio está presionada. */
     public void setEspacioPresionado(boolean valor) {
         this.espacioPresionado = valor;
     }
 
+    /** @return true si la tecla espacio está presionada */
     public boolean estaEspacioPresionado() {
         return espacioPresionado;
     }
 
+    /** @return stamina actual */
     public float getStamina(){
         return stamina;
 
     }
 
+    /** @return stamina máxima */
     public float getStaminaMax(){
         return staminaMax;
     }
 
+    /** Libera recursos asociados al personaje. */
     public void dispose() {
         textureQuieto.dispose();
     }
 
+    /** @return ancho del personaje en el mundo */
     public float getWidth() {
         return width;
     }
 
+    /** @return posición X en el mundo */
     public float getX() {
         return x;
     }
+    /** @return posición Y en el mundo */
     public float getY() {
         return y;
     }
 
+    /** @return altura del personaje en el mundo */
     public float getHeight() {
         return height;
     }

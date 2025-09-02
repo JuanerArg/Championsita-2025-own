@@ -3,6 +3,9 @@ package com.championsita.name;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
+/**
+ * Convierte las entradas del teclado en acciones sobre un {@link Personaje}.
+ */
 public class ManejadorInput implements InputProcessor {
 
     private final Personaje personaje;
@@ -11,10 +14,14 @@ public class ManejadorInput implements InputProcessor {
     private boolean espacioPresionado;
     private boolean sprintPresionado;
 
+    /**
+     * @param personaje personaje que será controlado por este manejador
+     */
     public ManejadorInput(Personaje personaje) {
         this.personaje = personaje;
     }
 
+    /** Registra las teclas presionadas. */
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
@@ -28,6 +35,7 @@ public class ManejadorInput implements InputProcessor {
         return true;
     }
 
+    /** Registra las teclas liberadas. */
     @Override
     public boolean keyUp(int keycode) {
         switch (keycode) {
@@ -42,6 +50,10 @@ public class ManejadorInput implements InputProcessor {
     }
 
     // Llamá esto desde Principal.render()
+    /**
+     * Actualiza el estado del personaje en cada frame con los valores de
+     * entrada actuales.
+     */
     public void actualizar(float delta) {
         personaje.actualizarEstadojugador(arriba, abajo, izquierda, derecha,sprintPresionado, delta);
         personaje.setEspacioPresionado(espacioPresionado); // para disparo

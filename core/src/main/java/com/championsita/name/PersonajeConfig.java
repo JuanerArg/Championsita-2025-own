@@ -1,5 +1,9 @@
 package com.championsita.name;
 
+/**
+ * Contenedor de nombres de archivos para las texturas y animaciones de un
+ * personaje.
+ */
 public class PersonajeConfig {
     public String texturaQuieto;
     public String sheetDerecha;
