@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
+/**
+ * Representa la pelota del juego y su comportamiento físico básico.
+ */
 public class Pelota {
 
     // === Constantes ===
@@ -28,6 +31,11 @@ public class Pelota {
     private Rectangle hitbox;
 
     // === Constructor ===
+    /**
+     * @param xInicial posición inicial en X
+     * @param yInicial posición inicial en Y
+     * @param escala factor de escala aplicado a la textura
+     */
     public Pelota(float xInicial, float yInicial, float escala) {
         sheet = new Texture("pelotaAnimada.png");
 
@@ -57,6 +65,12 @@ public class Pelota {
     }
 
     // === Métodos públicos ===
+    /**
+     * Actualiza la posición de la pelota, aplicando fricción y animación.
+     *
+     * @param delta tiempo transcurrido
+     * @param alguienEmpuja indica si un personaje la está empujando
+     */
     public void actualizar(float delta, boolean alguienEmpuja) {
         if (Math.abs(velocidadX) > 0.01f || Math.abs(velocidadY) > 0.01f || alguienEmpuja) {
             animar = true;
@@ -77,12 +91,14 @@ public class Pelota {
         hitbox.setPosition(x, y);
     }
 
+    /** Actualiza sin considerar empujes externos. */
     public void actualizar(float delta) {
         actualizar(delta, false); // llama al nuevo con un valor por defecto
     }
 
 
 
+    /** Aplica un disparo fuerte en la dirección indicada. */
     public void disparar(float dx, float dy) {
         velocidadX = dx * getFuerzaDisparo();
         velocidadY = dy * getFuerzaDisparo();
@@ -90,6 +106,7 @@ public class Pelota {
         stateTime = 0f; // reiniciar animación
     }
 
+    /** Aplica un empuje suave en la dirección indicada. */
     public void empujar(float dx, float dy) {
         velocidadX = dx * getFuerzaEmpuje();
         velocidadY = dy * getFuerzaEmpuje();
@@ -97,38 +114,47 @@ public class Pelota {
         stateTime = 0f; // reiniciar animación
     }
 
+    /** Detiene la animación de movimiento. */
     public void detener() {
         animar = false;
     }
 
+    /** Dibuja la pelota en pantalla. */
     public void render(SpriteBatch batch) {
         TextureRegion frameActual = animacion.getKeyFrame(stateTime, true);
         batch.draw(frameActual, x, y, width, height);
     }
 
+    /** Libera los recursos gráficos. */
     public void dispose() {
         sheet.dispose();
     }
 
     // === Getters y Setters ===
+    /** @return área de colisión de la pelota */
     public Rectangle getHitbox() {
         return hitbox;
     }
 
+    /** @return posición X actual */
     public float getX() { return x; }
+    /** @return posición Y actual */
     public float getY() { return y; }
 
+    /**
+     * Ajusta la posición de la pelota.
+     */
     public void setPosition(float nuevaX, float nuevaY) {
         this.x = nuevaX;
         this.y = nuevaY;
         hitbox.setPosition(nuevaX, nuevaY);
     }
 
-	public static float getFuerzaEmpuje() {
-		return FUERZA_EMPUJE;
-	}
+        public static float getFuerzaEmpuje() {
+                return FUERZA_EMPUJE;
+        }
 
-	public static float getFuerzaDisparo() {
-		return FUERZA_DISPARO;
-	}
+        public static float getFuerzaDisparo() {
+                return FUERZA_DISPARO;
+        }
 }

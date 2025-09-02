@@ -12,6 +12,13 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.championsita.name.personajes.Normal;
 
+/**
+ * Clase principal del juego.
+ * <p>
+ * Extiende {@link ApplicationAdapter} y gestiona el ciclo de vida de la
+ * aplicación de LibGDX: creación de recursos, actualización y renderizado,
+ * ajuste del {@code viewport} y liberación de memoria.
+ */
 public class Principal extends ApplicationAdapter {
 
     // === Atributos ===
@@ -30,6 +37,10 @@ public class Principal extends ApplicationAdapter {
 
     // === Métodos del ciclo de vida ===
 
+    /**
+     * Inicializa todos los recursos del juego y registra el manejador de
+     * entradas.
+     */
     @Override
     public void create() {
 
@@ -39,8 +50,6 @@ public class Principal extends ApplicationAdapter {
         canchaDeFutbol = new Texture("CampoDeJuego.png");
         texturaDelPersonaje = new Texture("Jugador.png");
 
-
-
         manejadorInput = new ManejadorInput(personaje);
         pelota = new Pelota(3, 3, 0.002f);
 
@@ -49,12 +58,14 @@ public class Principal extends ApplicationAdapter {
         Gdx.input.setInputProcessor(manejadorInput);
     }
 
+    /**
+     * Actualiza la lógica del juego y dibuja la escena en cada frame.
+     */
     @Override
     public void render() {
         float delta = Gdx.graphics.getDeltaTime();
 
         personaje.update(delta);
-        //System.out.println(personaje.getStamina());
         manejadorInput.actualizar(delta);
         personaje.limitarMovimiento(viewport.getWorldWidth(), viewport.getWorldHeight());
         pelota.actualizar(delta);
@@ -64,11 +75,18 @@ public class Principal extends ApplicationAdapter {
         dibujar();
     }
 
+    /**
+     * Se llama cuando se cambia el tamaño de la ventana; actualiza el
+     * {@link FitViewport}.
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
     }
 
+    /**
+     * Libera los recursos asignados al finalizar la aplicación.
+     */
     @Override
     public void dispose() {
         batch.dispose();
@@ -78,6 +96,9 @@ public class Principal extends ApplicationAdapter {
 
     // === Métodos auxiliares ===
 
+    /**
+     * Dibuja todos los elementos en pantalla.
+     */
     private void dibujar() {
         ScreenUtils.clear(Color.BLACK);
 
@@ -91,6 +112,10 @@ public class Principal extends ApplicationAdapter {
         batch.end();
     }
 
+    /**
+     * Calcula y aplica la interacción entre el personaje y la pelota cuando se
+     * produce una colisión.
+     */
     private void detectarColisionConPelota() {
         if (personaje.getHitbox().overlaps(pelota.getHitbox())) {
             float dx = 0, dy = 0;

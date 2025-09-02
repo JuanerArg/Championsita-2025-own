@@ -1,0 +1,49 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1152 >>
+stream
+BT /F1 12 Tf 72 720 Td
+(Resumen del proyecto Championsita 2025) Tj
+0 -14 Td () Tj
+0 -14 Td (Este juego usa libGDX para simular a un jugador y una pelota en un campo.) Tj
+0 -14 Td (La clase Principal inicializa recursos y coordina el ciclo de vida del juego.) Tj
+0 -14 Td (Personaje define el comportamiento base de los personajes y maneja movimiento y stamina.) Tj
+0 -14 Td (Normal hereda de Personaje y configura atributos por defecto.) Tj
+0 -14 Td (ManejadorInput traduce las entradas de teclado a acciones sobre el personaje.) Tj
+0 -14 Td (Pelota modela el baln y su fsica simple.) Tj
+0 -14 Td (HudPersonaje dibuja una barra de stamina sobre el personaje.) Tj
+0 -14 Td () Tj
+0 -14 Td (Posibles mejoras de cdigo limpio:) Tj
+0 -14 Td (- Separar la carga de texturas en una clase AssetManager para evitar duplicacin.) Tj
+0 -14 Td (- Reemplazar System.out.println por un logger configurable.) Tj
+0 -14 Td (- Extraer valores mgicos a constantes con nombres descriptivos.) Tj
+0 -14 Td (- Dividir mtodos largos en otros ms pequeos con responsabilidades claras.) Tj
+0 -14 Td (- Aadir pruebas unitarias para la lgica de movimiento y stamina.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001445 00000 n 
+trailer
+<< /Root 1 0 R /Size 6 >>
+startxref
+1515
+%%EOF

@@ -6,15 +6,18 @@ import com.championsita.name.Principal;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
+    /** Punto de entrada de la versión de escritorio. */
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
         createApplication();
     }
 
+    /** Crea e inicia la aplicación principal con la configuración por defecto. */
     private static Lwjgl3Application createApplication() {
         return new Lwjgl3Application(new Principal(), getDefaultConfiguration());
     }
 
+    /** Configuración base de la ventana y renderizado. */
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
         configuration.setTitle("Championsita2025");

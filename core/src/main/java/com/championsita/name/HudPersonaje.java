@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * HUD sencillo para dibujar la barra de stamina del personaje sobre el
+ * escenario.
+ */
 public class HudPersonaje {
 
     private Personaje personaje;
@@ -26,6 +30,9 @@ public class HudPersonaje {
 
 
 
+    /**
+     * @param personaje personaje cuyas estadísticas se mostrarán
+     */
     public HudPersonaje(Personaje personaje) {
         this.personaje = personaje;
 
@@ -35,6 +42,9 @@ public class HudPersonaje {
 
     }
 
+    /**
+     * Dibuja la barra de stamina sobre la posición del personaje.
+     */
     public void dibujarBarraStamina(SpriteBatch batch, float xPersonaje, float yPersonaje) {
 
         //camaraHUD.update();
@@ -51,7 +61,6 @@ public class HudPersonaje {
 
         // Dibujar barra proporcional a la stamina
         batch.draw(texturaBarra, xPersonaje + posX, yPersonaje + posY, anchoBarra * porcentaje, altoBarra);
-        System.out.println("Deberia funcionar");
 
 
     }
