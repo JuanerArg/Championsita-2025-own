@@ -355,6 +355,15 @@ public abstract class Personaje {
         return y;
     }
 
+    /**
+     * Ajusta la posición del personaje y de su hitbox.
+     */
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+        hitbox.setPosition(x, y);
+    }
+
     /** @return altura del personaje en el mundo */
     public float getHeight() {
         return height;
